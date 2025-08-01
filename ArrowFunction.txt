@@ -1,0 +1,75 @@
+
+Arrow Functions in JavaScript (React Context)
+=============================================
+
+✅ What is an Arrow Function?
+-----------------------------
+- A concise way to write functions in JavaScript.
+- Commonly used in React components, event handlers, and hooks.
+
+Traditional Function:
+---------------------
+function greet(name) {
+  return "Hello " + name;
+}
+
+Arrow Function:
+---------------
+const greet = (name) => {
+  return "Hello " + name;
+};
+
+🔁 Syntax Variations
+---------------------
+No parameters:
+  () => console.log("Hi")
+
+One parameter:
+  name => "Hello " + name
+
+Multiple parameters:
+  (a, b) => a + b
+
+One-line return (implicit return):
+  const double = x => x * 2;
+
+⛔ Arrow Functions & `this`
+---------------------------
+- Arrow functions do NOT have their own `this`.
+- This is useful in React class components to avoid manual binding.
+
+Example:
+--------
+class MyComponent extends React.Component {
+  constructor() {
+    super();
+    this.state = { count: 0 };
+  }
+
+  increment = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
+
+  render() {
+    return <button onClick={this.increment}>+1</button>;
+  }
+}
+
+💡 Arrow Functions in React Hooks
+---------------------------------
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  const increment = () => setCount(count + 1);
+
+  return <button onClick={increment}>Count: {count}</button>;
+};
+
+✅ When to Use Arrow Functions:
+-------------------------------
+- Event handlers like onClick, onChange
+- Inline functions inside JSX
+- Callback functions (e.g., map, filter)
+- Functions inside functional components
+
+Happy Coding!

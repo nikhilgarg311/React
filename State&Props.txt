@@ -1,0 +1,134 @@
+
+React States and Props - From Beginner to Advanced
+==================================================
+
+🔰 Beginner Level
+------------------
+
+1. What is React?
+   - A JavaScript library for building UIs using components.
+
+📦 PROPS (Properties)
+-----------------------
+
+2. What are Props?
+   - Props are read-only attributes used to pass data from parent to child.
+
+3. How to Use Props:
+   function Welcome(props) {
+     return <h1>Hello, {props.name}</h1>;
+   }
+   <Welcome name="Nikhil" />
+
+4. Key Characteristics:
+   - Props are immutable. Immutable means "cannot be changed."
+
+       So when we say props are immutable, it means:
+            A component cannot change the props it receives from its parent.
+            The props are read-only within the child component.
+
+            function Parent() {
+                return <Child name="Nikhil" />;
+            }
+
+            function Child(props) {
+            props.name = "Changed"; // ❌ This is NOT allowed!
+            return <h1>Hello, {props.name}</h1>;
+            }
+   - Help make components dynamic and reusable.
+
+🔄 STATE
+----------
+
+5. What is State?
+   - An object that determines behavior and rendering of a component.
+
+6. Using State with useState:
+   import React, { useState } from 'react';
+   function Counter() {
+     const [count, setCount] = useState(0);
+     return (
+       <div>
+         <p>You clicked {count} times</p>
+         <button onClick={() => setCount(count + 1)}>Click me</button>
+       </div>
+     );
+   }
+
+7. State vs Props:
+   | Feature   | Props      | State        |
+   |-----------|------------|--------------|
+   | Mutability | Immutable | Mutable       |
+   | Who sets it | Parent   | Component itself |
+   | Used for | Passing data | Managing local data |
+
+🧠 Intermediate Level
+----------------------
+
+8. Destructuring Props:
+   function Welcome({ name }) {
+     return <h1>Hello, {name}</h1>;
+   }
+
+9. Passing Functions via Props:
+   function Parent() {
+     const greet = () => alert("Hello from Parent!");
+     return <Child onGreet={greet} />;
+   }
+   function Child({ onGreet }) {
+     return <button onClick={onGreet}>Greet</button>;
+   }
+
+10. Conditional Rendering with State:
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
+   return (
+     <div>
+       {isLoggedIn ? <p>Welcome back!</p> : <p>Please log in.</p>}
+     </div>
+   );
+
+🚀 Advanced Level
+------------------
+
+11. State Lifting:
+   function Parent() {
+     const [value, setValue] = useState("");
+     return (
+       <>
+         <Input value={value} onChange={setValue} />
+         <Display value={value} />
+       </>
+     );
+   }
+   function Input({ value, onChange }) {
+     return <input value={value} onChange={(e) => onChange(e.target.value)} />;
+   }
+   function Display({ value }) {
+     return <p>{value}</p>;
+   }
+
+12. useEffect Hook with State:
+   import { useEffect } from 'react';
+   useEffect(() => {
+     console.log("Component mounted or state changed!");
+   }, [stateVariable]);
+
+13. Derived State:
+   - Avoid copying props into state unless absolutely necessary.
+
+14. useReducer for Complex State:
+   const reducer = (state, action) => {
+     switch (action.type) {
+       case 'increment':
+         return { count: state.count + 1 };
+       default:
+         return state;
+     }
+   };
+   const [state, dispatch] = useReducer(reducer, { count: 0 });
+   <button onClick={() => dispatch({ type: 'increment' })}>+</button>
+
+15. Memoization with Props:
+   - Use React.memo or useMemo to optimize performance by preventing unnecessary re-renders.
+
+Happy Learning!
