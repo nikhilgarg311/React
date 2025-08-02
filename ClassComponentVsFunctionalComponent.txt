@@ -1,0 +1,111 @@
+
+React State: Class vs Functional Components (In Depth)
+======================================================
+
+🧩 1. Initialization of State
+-----------------------------
+Class:
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+  }
+
+Function:
+  const [count, setCount] = useState(0);
+
+🔄 2. Updating State
+---------------------
+Class:
+  this.setState({ count: this.state.count + 1 }); // automatic merge
+
+Function:
+  setCount(count + 1); // replaces state, no merge
+
+💣 3. Batched & Functional Updates
+----------------------------------
+Class:
+  this.setState(prev => ({ count: prev.count + 1 }));
+
+Function:
+  setCount(prev => prev + 1);
+
+♻️ 4. Lifecycle Management
+--------------------------
+Class:
+  componentDidMount() { ... }
+  componentDidUpdate() { ... }
+  componentWillUnmount() { ... }
+
+Function:
+  useEffect(() => {
+    // mount
+    return () => {
+      // unmount
+    };
+  }, []);
+
+🕸 5. Multiple States vs Object
+-------------------------------
+Class:
+  this.state = { name: '', age: 0 };
+  this.setState({ name: 'John' }); // merges
+
+Function:
+  const [name, setName] = useState('');
+  const [age, setAge] = useState(0);
+
+  OR
+
+  const [user, setUser] = useState({ name: '', age: 0 });
+  setUser({ ...user, name: 'John' }); // manual merge
+
+🧠 6. `this` Keyword
+--------------------
+Class:
+  Must bind or use arrow functions to access `this`.
+
+Function:
+  No `this` at all — cleaner and simpler.
+
+🧪 7. Hooks Availability
+-------------------------
+Class:
+  ❌ No hooks
+
+Function:
+  ✅ All hooks: useState, useEffect, useRef, useReducer, etc.
+
+🧩 8. Readability and Logic Reuse
+---------------------------------
+Class:
+  Logic is often tangled in lifecycle methods.
+
+Function:
+  Logic is modular and composable with multiple `useEffect()` calls and custom hooks.
+
+🧰 9. Performance Optimization
+------------------------------
+Class:
+  Use PureComponent or shouldComponentUpdate
+
+Function:
+  Use React.memo, useCallback, useMemo
+
+🧾 Summary Table
+================
+
+| Feature                  | Class Component                     | Function Component               |
+|--------------------------|--------------------------------------|----------------------------------|
+| State Initialization     | constructor + this.state            | useState                         |
+| State Update             | this.setState (auto merge)          | setState (manual merge)          |
+| Lifecycle                | componentDidMount etc.              | useEffect                        |
+| `this` usage             | Required                            | Not used                         |
+| Hooks                    | ❌ Not supported                    | ✅ Fully supported               |
+| Reuse of Logic           | Hard (HOC, render props)            | Easy (custom hooks)              |
+| Performance Optimization | PureComponent, shouldComponentUpdate| useMemo, useCallback, React.memo |
+
+Key Insight:
+------------
+Class components are verbose and harder to optimize or scale.
+Functional components with hooks are now the standard and preferred method in React apps.
+
